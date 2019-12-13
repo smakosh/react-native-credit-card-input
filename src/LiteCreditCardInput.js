@@ -150,8 +150,7 @@ export default class LiteCreditCardInput extends Component {
 
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus }, numberTestID,
-    expiryTestID,
-    cvcTestID } = this.props;
+    expiryTestID, cvcTestID } = this.props;
     const showRightPart = focused && focused !== "number";
 
     return (

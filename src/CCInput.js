@@ -76,7 +76,7 @@ export default class CCInput extends Component {
             additionalInputProps, testID } = this.props;
     return (
       <TouchableOpacity onPress={this.focus}
-        activeOpacity={0.99}>
+        activeOpacity={0.99} testID={testID}>
         <View style={[containerStyle]}>
           { !!label && <Text style={[labelStyle]}>{label}</Text>}
           <TextInput ref="input"
@@ -97,7 +97,7 @@ export default class CCInput extends Component {
             value={value}
             onFocus={this._onFocus}
             onChangeText={this._onChange}
-            testID={testID}
+            testID={`${testID}-input`}
           />
         </View>
       </TouchableOpacity>
