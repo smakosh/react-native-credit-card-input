@@ -79,6 +79,10 @@ export default class LiteCreditCardInput extends Component {
     placeholderColor: PropTypes.string,
 
     additionalInputsProps: PropTypes.objectOf(PropTypes.shape(TextInput.propTypes)),
+    
+    numberTestID: PropTypes.string,
+    expiryTestID: PropTypes.string,
+    cvcTestID: PropTypes.string,
   };
 
   static defaultProps = {
@@ -91,6 +95,9 @@ export default class LiteCreditCardInput extends Component {
     invalidColor: "red",
     placeholderColor: "gray",
     additionalInputsProps: {},
+    numberTestID: "",
+    expiryTestID: "",
+    cvcTestID: "",
   };
 
   componentDidMount = () => this._focus(this.props.focused);
@@ -113,7 +120,7 @@ export default class LiteCreditCardInput extends Component {
       inputStyle, validColor, invalidColor, placeholderColor,
       placeholders, values, status,
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
-      additionalInputsProps,
+      additionalInputsProps, numberTestID, expiryTestID, cvcTestID
     } = this.props;
 
     return {
@@ -127,6 +134,9 @@ export default class LiteCreditCardInput extends Component {
 
       onFocus, onChange, onBecomeEmpty, onBecomeValid,
       additionalInputProps: additionalInputsProps[field],
+      numberTestID: numberTestID,
+      expiryTestID: expiryTestID,
+      cvcTestID: cvcTestID,
     };
   };
 
@@ -139,7 +149,9 @@ export default class LiteCreditCardInput extends Component {
   }
 
   render() {
-    const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
+    const { focused, values: { number }, inputStyle, status: { number: numberStatus }, numberTestID,
+    expiryTestID,
+    cvcTestID } = this.props;
     const showRightPart = focused && focused !== "number";
 
     return (
@@ -150,7 +162,9 @@ export default class LiteCreditCardInput extends Component {
         ]}>
           <CCInput {...this._inputProps("number")}
             keyboardType="numeric"
-            containerStyle={s.numberInput} />
+            containerStyle={s.numberInput}
+            testID={numberTestID}
+          />
         </View>
         <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
           <Image style={s.icon} source={Icons[this._iconToShow()]} />
@@ -171,10 +185,14 @@ export default class LiteCreditCardInput extends Component {
           </TouchableOpacity>
           <CCInput {...this._inputProps("expiry")}
             keyboardType="numeric"
-            containerStyle={s.expiryInput} />
+            containerStyle={s.expiryInput}
+            testID={expiryTestID}
+          />
           <CCInput {...this._inputProps("cvc")}
             keyboardType="numeric"
-            containerStyle={s.cvcInput} />
+            containerStyle={s.cvcInput}
+            testID={cvcTestID}
+          />
         </View>
       </View>
     );
